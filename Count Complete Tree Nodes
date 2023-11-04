@@ -1,0 +1,20 @@
+class Solution 
+{
+    public int countNodes(TreeNode root) 
+    {
+        if(root == null) return 0;
+        Queue<TreeNode>q=new LinkedList();
+        q.add(root);
+        int c=0;
+        while(!q.isEmpty())
+        {
+          c++;
+          TreeNode r=q.poll();
+          if(r.left!=null)
+          q.add(r.left);
+          if(r.left!=null && r.right!=null)
+          q.add(r.right);
+        }
+        return c;
+    }
+}
