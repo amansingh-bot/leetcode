@@ -1,0 +1,35 @@
+class Solution {
+    int ans = Integer.MAX_VALUE;
+    public int minDiffInBST(TreeNode root) {
+        dfs(root);
+        return ans;
+    }
+
+    public Pair dfs(TreeNode root){
+        if(root == null){
+            return new Pair(Integer.MAX_VALUE, Integer.MIN_VALUE);
+        }
+        Pair lp = dfs(root.left);
+        if(lp.max != Integer.MIN_VALUE)
+            ans = Math.min(ans, root.val - lp.max);        
+        Pair rp = dfs(root.right);
+        if(rp.min != Integer.MAX_VALUE)
+            ans = Math.min(ans, rp.min - root.val);   
+        Pair mp = new Pair();
+        mp.min = Math.min(lp.min, Math.min(root.val, rp.min));
+        mp.max = Math.max(lp.max, Math.max(root.val, rp.max));
+        return mp;
+    }
+
+    public class Pair{
+        int min;
+        int max;
+        Pair(){
+            
+        }
+        Pair(int min, int max){
+            this.min = min;
+            this.max = max;
+        }
+    }
+}
